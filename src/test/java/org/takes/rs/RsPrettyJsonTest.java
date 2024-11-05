@@ -27,6 +27,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
+
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonStructure;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.hamcrest.core.IsEqual;
@@ -46,6 +51,31 @@ final class RsPrettyJsonTest {
             new RsBodyPrint(
                 new RsPrettyJson(
                     new RsWithBody("{\"widget\": {\"debug\": \"on\" }}")
+                )
+            ).asString(),
+            Matchers.is(
+                "{\n    \"widget\": {\n        \"debug\": \"on\"\n    }\n}"
+            )
+        );
+    }
+//    TODO RsPrettyJson Json Structure check
+
+
+    @Test
+    void checksThatJsonStructureCanBePassedDirectlyToBodyPrint() throws Exception {
+        MatcherAssert.assertThat(
+            new RsBodyPrint(
+                new RsPrettyJson(
+                        Json.createObjectBuilder()
+                    .add("response", "dude")
+                    .add(
+                        "jwt", String.format(
+                            "%s.%s.%s",
+                            "dude",
+                            "",
+                            ""
+                        )
+                    ).build()
                 )
             ).asString(),
             Matchers.is(

@@ -23,11 +23,7 @@
  */
 package org.takes.rs;
 
-import jakarta.json.Json;
-import jakarta.json.JsonException;
-import jakarta.json.JsonObject;
-import jakarta.json.JsonReader;
-import jakarta.json.JsonWriter;
+import jakarta.json.*;
 import jakarta.json.stream.JsonGenerator;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -59,6 +55,24 @@ public final class RsPrettyJson implements Response {
      * Response with properly transformed body.
      */
     private final List<Response> transformed;
+
+    /**
+     * Ctor.
+     *
+     * @param struct Basic JSON Structure
+     */
+    public RsPrettyJson(final JsonStructure struct) throws Exception {
+        this(new RsJson(struct));
+    }
+
+    /**
+     * Ctor.
+     *
+     * @param struct Array of JSON Structures
+     */
+    public RsPrettyJson(final JsonStructure[] struct) throws Exception {
+        this(new RsJson(struct));
+    }
 
     /**
      * Ctor.
