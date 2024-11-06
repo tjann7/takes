@@ -79,7 +79,7 @@ public final class FkMethods implements Fork {
      * @param tke Take
      */
     public FkMethods(final String mtd, final Take tke) {
-        this(Arrays.asList(mtd.split(",")), tke);
+        this(Arrays.asList(mtd.replace(" ", "").split(",")), tke);
     }
 
     /**

@@ -66,20 +66,18 @@ final class RsPrettyJsonTest {
         MatcherAssert.assertThat(
             new RsBodyPrint(
                 new RsPrettyJson(
-                        Json.createObjectBuilder()
-                    .add("response", "dude")
-                    .add(
-                        "jwt", String.format(
-                            "%s.%s.%s",
-                            "dude",
-                            "",
-                            ""
+                    Json.createObjectBuilder()
+                        .add(
+                        "somekey",
+                            Json.createObjectBuilder()
+                                .add("widget", "VALUE")
+                                .build()
                         )
-                    ).build()
+                        .build()
                 )
             ).asString(),
             Matchers.is(
-                "{\n    \"widget\": {\n        \"debug\": \"on\"\n    }\n}"
+                "{\n    \"somekey\": {\n        \"widget\": \"VALUE\"\n    }\n}"
             )
         );
     }
